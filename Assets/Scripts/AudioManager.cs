@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -14,9 +14,13 @@ namespace UI.Pagination
         [SerializeField] private AudioSource _mysteryAudio;
         [SerializeField] private AudioClip[] mysteries;
 
+        public float targetVolume = 0.1f;
+        public float duration = 2.0f;
+
         private void Start()
         {
             _backgroundAudio.Stop();
+            
         }
 
         private void Update()
@@ -33,23 +37,40 @@ namespace UI.Pagination
                 //int NumberTrack = Int32.Parse(_inputManager.CheckKeys().ToString().Substring(5, 1));
                 string input = _inputManager.CheckKeys().ToString();
 
-                // Ïðîâåðêà, ÷òî äëèíà ñòðîêè äîñòàòî÷íî âåëèêà, ÷òîáû âçÿòü ïîäñòðîêó íà÷èíàÿ ñ ïÿòîãî ñèìâîëà
+                // ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ°, Ñ‡Ñ‚Ð¾ Ð´Ð»Ð¸Ð½Ð° ÑÑ‚Ñ€Ð¾ÐºÐ¸ Ð´Ð¾ÑÑ‚Ð°Ñ‚Ð¾Ñ‡Ð½Ð¾ Ð²ÐµÐ»Ð¸ÐºÐ°, Ñ‡Ñ‚Ð¾Ð±Ñ‹ Ð²Ð·ÑÑ‚ÑŒ Ð¿Ð¾Ð´ÑÑ‚Ñ€Ð¾ÐºÑƒ Ð½Ð°Ñ‡Ð¸Ð½Ð°Ñ Ñ Ð¿ÑÑ‚Ð¾Ð³Ð¾ ÑÐ¸Ð¼Ð²Ð¾Ð»Ð°
                 if (input.Length >= 6)
                 {
                     if (int.TryParse(input.Substring(5, 1), out int numResult))
                     {
-                        Debug.LogFormat("Âû âûáðàëè òðåê ¹: {0}", numResult);
+                        Debug.LogFormat("Ð’Ñ‹ Ð²Ñ‹Ð±Ñ€Ð°Ð»Ð¸ Ñ‚Ñ€ÐµÐº â„–: {0}", numResult);
 
                         _mysteryAudio.clip = mysteries[numResult - 1];
                         _mysteryAudio.Play();
-                        while(_backgroundAudio.volume > 0.1f)
-                        {
-                            _backgroundAudio.volume = Mathf.Lerp(_backgroundAudio.volume, 0.1f, Time.deltaTime);
-                        }
+
+                        //_backgroundAudio.volume = Mathf.Lerp(_backgroundAudio.volume, 0.1f, 10 * Time.deltaTime);
+                        //_backgroundAudio.volume = 0.1f;
+                        StartCoroutine(FadeVolume(targetVolume, duration));
+
+
                     }
                 }
 
             }
+        }
+
+        IEnumerator FadeVolume(float targetVolume, float duration)
+        {
+            float startVolume = _backgroundAudio.volume;
+            float time = 0;
+
+            while (time < duration)
+            {
+                time += Time.deltaTime;
+                _backgroundAudio.volume = Mathf.Lerp(startVolume, targetVolume, time / duration);
+                yield return null;
+            }
+
+            _backgroundAudio.volume = targetVolume;
         }
     }
 }
