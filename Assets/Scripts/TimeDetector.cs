@@ -11,8 +11,8 @@ namespace UI.Pagination
 
         [SerializeField] private float _endTime;
 
-        public float _currTime;
-        public float _reserveTime;
+        [SerializeField] private float _currTime;
+        [SerializeField] private float _reserveTime;
 
         private void Update()
         {

@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -7,14 +8,14 @@ namespace UI.Pagination
 {
     public class InputManager : MonoBehaviour
     {
-        [SerializeField] private PagedRect _pageRect;
+        private readonly Array keyCodes = Enum.GetValues(typeof(KeyCode));
 
         private void Update()
         {
             CheckSensor();
-            GetCurrentScene();
         }
 
+        //Датчик
         public bool CheckSensor()
         {
             if (Input.GetKey(KeyCode.Tab))
@@ -24,16 +25,25 @@ namespace UI.Pagination
             }
             return false;
         }
-
-        public bool GetCurrentScene()
+        
+        public KeyCode CheckKeys()
         {
-            if (_pageRect.GetCurrentPage().PageNumber == 1)
+            if (Input.anyKeyDown)
             {
-                Debug.LogFormat("Датчик сработал, показ костра, текущая сцена: {0}", _pageRect.GetCurrentPage().PageNumber);
-                
-                return true;
+                foreach (KeyCode keyCode in keyCodes)
+                {
+                    if (Input.GetKey(keyCode))
+                    {
+                        //для теста на пк
+                        if(keyCode != KeyCode.Mouse0)
+                        {
+                            Debug.Log("KeyCode down: " + keyCode);
+                            return keyCode;
+                        }
+                    }
+                }
             }
-            return false;
+            return KeyCode.None;
         }
     }
 }
