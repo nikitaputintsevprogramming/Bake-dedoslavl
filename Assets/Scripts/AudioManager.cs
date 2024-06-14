@@ -14,8 +14,8 @@ namespace UI.Pagination
         [SerializeField] private AudioSource _mysteryAudio;
         [SerializeField] private AudioClip[] mysteries;
 
-        public float targetVolume = 0.1f;
-        public float duration = 2.0f;
+        [SerializeField] private float targetVolume = 0.1f;
+        [SerializeField] private float duration = 2.0f;
 
         private void Start()
         {
@@ -50,11 +50,8 @@ namespace UI.Pagination
                         //_backgroundAudio.volume = Mathf.Lerp(_backgroundAudio.volume, 0.1f, 10 * Time.deltaTime);
                         //_backgroundAudio.volume = 0.1f;
                         StartCoroutine(FadeVolume(targetVolume, duration));
-
-
                     }
                 }
-
             }
         }
 

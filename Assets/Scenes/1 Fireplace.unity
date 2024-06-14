@@ -746,7 +746,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputManager: {fileID: 354645596}
-  _endTime: 10
+  _endTime: 120
   _currTime: 0
   _reserveTime: 0
 --- !u!114 &354645599
@@ -772,6 +772,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a27bdd5f7befbee4382a91b869145f9d, type: 3}
   - {fileID: 8300000, guid: 6a21ec9406df3d649b03feee5e165d17, type: 3}
   - {fileID: 8300000, guid: 07000582bb2eaed42a365007632707e3, type: 3}
+  targetVolume: 0.1
+  duration: 2
 --- !u!1 &454467935
 GameObject:
   m_ObjectHideFlags: 0
