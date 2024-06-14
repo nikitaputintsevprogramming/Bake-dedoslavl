@@ -697,6 +697,8 @@ GameObject:
   m_Component:
   - component: {fileID: 354645597}
   - component: {fileID: 354645596}
+  - component: {fileID: 354645598}
+  - component: {fileID: 354645599}
   m_Layer: 0
   m_Name: InputManager
   m_TagString: Untagged
@@ -732,6 +734,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &354645598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354645595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7cfb32136c6a404ca18859bbc506b85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputManager: {fileID: 354645596}
+  _endTime: 10
+  _currTime: 0
+  _reserveTime: 0
+--- !u!114 &354645599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354645595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7767803767a653a4498be04fb814c397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputManager: {fileID: 354645596}
+  _pageRect: {fileID: 1768991424}
+  _backgroundAudio: {fileID: 664514823}
+  mysteries: []
 --- !u!1 &454467935
 GameObject:
   m_ObjectHideFlags: 0
