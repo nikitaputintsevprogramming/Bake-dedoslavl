@@ -38,7 +38,6 @@ namespace UI.Pagination
         private void ResetTimer()
         {
             _reserveTime += _currTime;
-            //_currTime = _reserveTime - _currTime;
         }
     }
 }

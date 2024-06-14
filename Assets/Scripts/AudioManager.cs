@@ -20,7 +20,7 @@ namespace UI.Pagination
 
         private void Update()
         {
-            if (_inputManager.SetFireScene())
+            if (_inputManager.GetCurrentScene() && _inputManager.CheckSensor())
             {
                 Debug.Log("_backgroundAudio.Play");
                 _backgroundAudio.Play();

@@ -5,24 +5,14 @@ using UnityEngine.EventSystems;
 
 namespace UI.Pagination
 {
-    public class InputManager : MonoBehaviour//, IPointerClickHandler, IPointerDownHandler
+    public class InputManager : MonoBehaviour
     {
         [SerializeField] private PagedRect _pageRect;
-        
-        //public void OnPointerClick(PointerEventData eventData)
-        //{
-        //    Debug.Log("OnPointerClick");
-        //}
-
-        //public void OnPointerDown(PointerEventData eventData)
-        //{
-        //    Debug.Log("OnPointerDown");
-        //}
 
         private void Update()
         {
             CheckSensor();
-            SetFireScene();
+            GetCurrentScene();
         }
 
         public bool CheckSensor()
@@ -35,9 +25,9 @@ namespace UI.Pagination
             return false;
         }
 
-        public bool SetFireScene()
+        public bool GetCurrentScene()
         {
-            if (Input.GetKey(KeyCode.Tab) && _pageRect.GetCurrentPage().PageNumber == 1)
+            if (_pageRect.GetCurrentPage().PageNumber == 1)
             {
                 Debug.LogFormat("Датчик сработал, показ костра, текущая сцена: {0}", _pageRect.GetCurrentPage().PageNumber);
                 
