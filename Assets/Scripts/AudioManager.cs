@@ -43,14 +43,17 @@ namespace UI.Pagination
                 {
                     if (int.TryParse(input.Substring(6, 1), out int numResult))
                     {
-                        Debug.LogFormat("Вы выбрали трек №: {0}", numResult);
+                        if (numResult <= mysteries.Length -1)
+                        {
+                            Debug.LogFormat("Вы выбрали трек №: {0}", numResult);
 
-                        _mysteryAudio.clip = mysteries[numResult - 1];
-                        _mysteryAudio.Play();
+                            _mysteryAudio.clip = mysteries[numResult];
+                            _mysteryAudio.Play();
 
-                        //_backgroundAudio.volume = Mathf.Lerp(_backgroundAudio.volume, 0.1f, 10 * Time.deltaTime);
-                        //_backgroundAudio.volume = 0.1f;
-                        StartCoroutine(FadeVolume(targetBgDownVolume, duration));
+                            //_backgroundAudio.volume = Mathf.Lerp(_backgroundAudio.volume, 0.1f, 10 * Time.deltaTime);
+                            //_backgroundAudio.volume = 0.1f;
+                            StartCoroutine(FadeVolume(targetBgDownVolume, duration));
+                        }
                     }
                 }
             }
