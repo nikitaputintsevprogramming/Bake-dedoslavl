@@ -14,13 +14,14 @@ namespace UI.Pagination
         [SerializeField] private AudioSource _mysteryAudio;
         [SerializeField] private AudioClip[] mysteries;
 
-        [SerializeField] private float targetVolume = 0.1f;
+        [SerializeField] private float _startBgVolume = 0.5f;
+        [SerializeField] private float targetBgDownVolume = 0.1f;
         [SerializeField] private float duration = 2.0f;
 
         private void Start()
         {
             _backgroundAudio.Stop();
-            
+            _backgroundAudio.volume = _startBgVolume;
         }
 
         private void Update()
@@ -38,9 +39,9 @@ namespace UI.Pagination
                 string input = _inputManager.CheckKeys().ToString();
 
                 // Проверка, что длина строки достаточно велика, чтобы взять подстроку начиная с пятого символа
-                if (input.Length >= 6)
+                if (input.Length >= 7)
                 {
-                    if (int.TryParse(input.Substring(5, 1), out int numResult))
+                    if (int.TryParse(input.Substring(6, 1), out int numResult))
                     {
                         Debug.LogFormat("Вы выбрали трек №: {0}", numResult);
 
@@ -49,7 +50,7 @@ namespace UI.Pagination
 
                         //_backgroundAudio.volume = Mathf.Lerp(_backgroundAudio.volume, 0.1f, 10 * Time.deltaTime);
                         //_backgroundAudio.volume = 0.1f;
-                        StartCoroutine(FadeVolume(targetVolume, duration));
+                        StartCoroutine(FadeVolume(targetBgDownVolume, duration));
                     }
                 }
             }
