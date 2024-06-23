@@ -51,7 +51,7 @@ namespace UI.Pagination
 
         public void TextShowResetTime(Text textTestTime)
         {
-            textTestTime.text = "Рестарт через: " + sliderTestTime.value.ToString();
+            textTestTime.text = "Рестарт через: " + sliderTestTime.value.ToString("0") + "секунд";
         }
 
         public void OnValueChangedResetSlider()
