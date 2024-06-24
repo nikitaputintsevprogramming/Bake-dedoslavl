@@ -17,10 +17,15 @@ namespace Bake
 
         //[SerializeField] private Text textTestTime;
         [SerializeField] private Slider sliderTestTime;
+        [SerializeField] private Text textTimeSec;
 
         private void Start()
         {
-            sliderTestTime.value = _endTime;
+            if(PlayerPrefs.GetFloat("TimeReset") == 0)
+                sliderTestTime.value = _endTime;
+            sliderTestTime.value = PlayerPrefs.GetFloat("TimeReset");
+            Debug.Log("PlayerPrefs.GetFloat(TimeReset)" + PlayerPrefs.GetFloat("TimeReset"));
+            textTimeSec.text = "Рестарт через: " + PlayerPrefs.GetFloat("TimeReset").ToString("0") + " секунд";
         }
 
         private void Update()
@@ -57,6 +62,9 @@ namespace Bake
         public void OnValueChangedResetSlider()
         {
             _endTime = sliderTestTime.value;
+            PlayerPrefs.SetFloat("TimeReset", sliderTestTime.value);
+            Debug.Log("sliderTestTime.value for set PlayerPrefs" + sliderTestTime.value);
+            Debug.Log("PlayerPrefs.GetFloat(TimeReset)" + PlayerPrefs.GetFloat("TimeReset"));
             ResetTimer();
         }
     }

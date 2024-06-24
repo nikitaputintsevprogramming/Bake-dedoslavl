@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Video;
 using UI.Pagination; //Фрейм
 using System.Linq;
+using UnityEngine.UI;
 using System;
 
 namespace Bake
@@ -17,14 +18,25 @@ namespace Bake
         [SerializeField] private AudioSource _mysteryAudio;
         public List<AudioClip> mysteries;
 
-        [SerializeField] private float _endVolume = 0.5f;
-        [SerializeField] private float _startVolume = 0.1f;
+        [SerializeField] private float _maxVolume = 0.5f;
+        [SerializeField] private float _minVolume = 0.1f;
         [SerializeField] private float duration = 2.0f;
+
+        [SerializeField] private Slider _sliderMinValue;
+        [SerializeField] private Slider _sliderMaxValue;
 
         private void Start()
         {
             _backgroundAudio.Stop();
-            _backgroundAudio.volume = _endVolume;
+            _backgroundAudio.volume = _maxVolume;
+
+            if (PlayerPrefs.GetFloat("MaxVol") != 0)
+                _maxVolume = PlayerPrefs.GetFloat("MaxVol");
+            _sliderMaxValue.value = PlayerPrefs.GetFloat("MaxVol");
+
+            if (PlayerPrefs.GetFloat("MinVol") != 0)
+                _minVolume = PlayerPrefs.GetFloat("MinVol");
+            _sliderMinValue.value = PlayerPrefs.GetFloat("MinVol");
         }
 
         private void Update()
@@ -53,14 +65,19 @@ namespace Bake
 
                             _mysteryAudio.clip = mysteries[numResult];
                             _mysteryAudio.Play();
-                            StartCoroutine(FadeVolume(_mysteryAudio, _startVolume, _endVolume, duration));
+                            StartCoroutine(FadeVolume(_mysteryAudio, _minVolume, _maxVolume, duration));
 
                             //_backgroundAudio.volume = Mathf.Lerp(_backgroundAudio.volume, 0.1f, 10 * Time.deltaTime);
                             //_backgroundAudio.volume = 0.1f;
-                            StartCoroutine(FadeVolume(_backgroundAudio, _endVolume, _startVolume, duration));
+                            StartCoroutine(FadeVolume(_backgroundAudio, _maxVolume, _minVolume, duration));
                         }
                     }
                 }
+            }
+
+            if(!_mysteryAudio.isPlaying && _backgroundAudio.volume <=_minVolume)
+            {
+                StartCoroutine(FadeVolume(_backgroundAudio, _minVolume, _maxVolume, duration));
             }
         }
 
@@ -77,6 +94,20 @@ namespace Bake
             }
 
             audioSource.volume = targetVolume;
+        }
+
+        public void ChangeMinVol(Text textTarget)
+        {
+            textTarget.text = "Мин. громкость при затухании: " + (_sliderMinValue.value * 100).ToString("0");
+            PlayerPrefs.SetFloat("MinVol", _sliderMinValue.value);
+            _minVolume = _sliderMinValue.value;
+        }
+
+        public void ChangeMaxVol(Text textTarget)
+        {
+            textTarget.text = "Макс. громкость при затухании: " + (_sliderMaxValue.value * 100).ToString("0");
+            PlayerPrefs.SetFloat("MaxVol", _sliderMaxValue.value);
+            _maxVolume = _sliderMaxValue.value;
         }
     }
 }

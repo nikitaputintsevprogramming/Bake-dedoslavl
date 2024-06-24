@@ -14,7 +14,8 @@ namespace Bake
 
         public void ShowTestPanel(GameObject Panel) 
         {
-            Panel.SetActive(!Panel.activeInHierarchy);
+            if (!Input.GetKeyDown(KeyCode.Return))
+                Panel.SetActive(!Panel.activeInHierarchy);
         }
 
         private void Update()
@@ -24,6 +25,7 @@ namespace Bake
 
         public void EnterEnter()
         {
+            if(!Input.GetKeyDown(KeyCode.Return))
             btn.onClick.Invoke();
         }
 
@@ -59,6 +61,8 @@ namespace Bake
             }
             return KeyCode.None;
         }
+
+
     }
 }
 
