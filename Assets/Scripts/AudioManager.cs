@@ -59,6 +59,19 @@ namespace Bake
             if (PlayerPrefs.GetFloat("MinVol") != 0)
                 _minVolume = PlayerPrefs.GetFloat("MinVol");
             _sliderMinValue.value = PlayerPrefs.GetFloat("MinVol");
+
+            
+        }
+
+        List<AudioClip> SortByNumberInName(List<AudioClip> clips)
+        {
+            return clips.OrderBy(clip => ExtractNumberFromName(clip.name)).ToList();
+        }
+
+        int ExtractNumberFromName(string name)
+        {
+            var digits = new string(name.Where(char.IsDigit).ToArray());
+            return int.TryParse(digits, out int number) ? number : 0;
         }
 
         private void Update()
@@ -71,6 +84,8 @@ namespace Bake
 
             if (_pageRect.GetCurrentPage().PageNumber == 2)
             {
+                mysteries = SortByNumberInName(mysteries);
+
                 KeyCode input = _inputManager.CheckKeys();
                 if (keyToTrackIndex.ContainsKey(input))
                 {

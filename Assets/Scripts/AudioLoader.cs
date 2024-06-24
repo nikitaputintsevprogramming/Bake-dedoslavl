@@ -23,16 +23,13 @@ namespace Bake
 
         void Awake()
         {
-            //audioSource = gameObject.AddComponent<AudioSource>();
-            //videoPlayer = gameObject.AddComponent<VideoPlayer>();
-
             EnsureVerticalLayoutGroup(contentTransform);
 
             LoadMediaFiles(audioDirectory, "*.mp3", LoadAudio);
             LoadMediaFiles(videoDirectory, "*.mp4", LoadVideo);
 
             // Запуск корутины для ожидания загрузки всех аудиофайлов
-            StartCoroutine(WaitForAllAudioLoaders());
+            //StartCoroutine(WaitForAllAudioLoaders());
         }
 
         void LoadMediaFiles(string directory, string filePattern, System.Func<string, IEnumerator> loadFunction)
@@ -53,6 +50,10 @@ namespace Bake
                         StartCoroutine(loader);
                     }
                 }
+                else
+                {
+                    Debug.LogWarning("No media files found in directory: " + path);
+                }
             }
             else
             {
@@ -68,7 +69,8 @@ namespace Bake
 
         IEnumerator LoadAudio(string path)
         {
-            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(path, AudioType.MPEG))
+            string url = Path.Combine("file://", path);
+            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.MPEG))
             {
                 yield return www.SendWebRequest();
 
@@ -85,13 +87,18 @@ namespace Bake
                         Debug.Log("Loaded audio clip: " + clip.name); // Выводим имя клипа в лог
                         _audioManager.mysteries.Add(clip);
                     }
+                    else
+                    {
+                        Debug.LogError("Failed to load audio clip from: " + url);
+                    }
                 }
             }
         }
 
         IEnumerator LoadVideo(string path)
         {
-            using (UnityWebRequest www = UnityWebRequest.Get(path))
+            string url = Path.Combine("file://", path);
+            using (UnityWebRequest www = UnityWebRequest.Get(url))
             {
                 yield return www.SendWebRequest();
 
@@ -101,7 +108,7 @@ namespace Bake
                 }
                 else
                 {
-                    videoPlayer.url = path;
+                    videoPlayer.url = url;
                     videoPlayer.Play();
                     Debug.Log("Playing video: " + Path.GetFileName(path)); // Выводим имя видеофайла в лог
                 }
@@ -112,18 +119,38 @@ namespace Bake
         {
             foreach (var loader in audioLoaders)
             {
-                yield return loader;
+                yield return StartCoroutine(loader);
+            }
+
+            // Проверяем список перед сортировкой
+            Debug.Log("Audio clips before sorting:");
+            foreach (var clip in _audioManager.mysteries)
+            {
+                Debug.Log(clip.name);
             }
 
             // Преобразуем имена файлов в числовые значения, сортируем их и преобразуем обратно в имена файлов
             var sortedClips = _audioManager.mysteries
-                .OrderBy(clip => int.Parse(Path.GetFileNameWithoutExtension(clip.name)))
+                .OrderBy(clip =>
+                {
+                    int parsedNumber;
+                    if (int.TryParse(Path.GetFileNameWithoutExtension(clip.name), out parsedNumber))
+                    {
+                        return parsedNumber;
+                    }
+                    else
+                    {
+                        Debug.LogError($"Failed to parse '{clip.name}' as an integer.");
+                        return int.MaxValue;
+                    }
+                })
                 .ToList();
 
             // Обновляем оригинальный список
             _audioManager.mysteries = sortedClips;
 
             // Выводим отсортированный список для проверки
+            Debug.Log("Sorted audio clips:");
             foreach (var clip in _audioManager.mysteries)
             {
                 Debug.Log(clip.name);
@@ -142,7 +169,7 @@ namespace Bake
             layoutGroup.childForceExpandWidth = true;
             layoutGroup.childControlHeight = true;
             layoutGroup.childControlWidth = true;
-            layoutGroup.spacing = 10; 
+            layoutGroup.spacing = 10;
         }
     }
 }
