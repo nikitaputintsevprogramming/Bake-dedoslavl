@@ -27,24 +27,24 @@ namespace Bake
 
         private Dictionary<KeyCode, int> keyToTrackIndex = new Dictionary<KeyCode, int>
         {
-            { KeyCode.Keypad0, 0 },
-            { KeyCode.Keypad1, 1 },
-            { KeyCode.Keypad2, 2 },
-            { KeyCode.Keypad3, 3 },
-            { KeyCode.Keypad4, 4 },
-            { KeyCode.Keypad5, 5 },
-            { KeyCode.Keypad6, 6 },
-            { KeyCode.Keypad7, 7 },
-            { KeyCode.Keypad8, 8 },
-            { KeyCode.Keypad9, 9 },
-            { KeyCode.Clear, 10 },
-            { KeyCode.KeypadDivide, 11 },
-            { KeyCode.KeypadMultiply, 12 },
-            { KeyCode.Backspace, 13 },
-            { KeyCode.KeypadMinus, 14 },
-            { KeyCode.KeypadPlus, 15 },
-            { KeyCode.KeypadEnter, 16 },
-            { KeyCode.KeypadPeriod, 17 }
+            { KeyCode.Keypad0, 0 }, // 0
+            { KeyCode.Keypad1, 1 }, // 1
+            { KeyCode.Keypad2, 2 }, // 2
+            { KeyCode.Keypad3, 3 }, // 3
+            { KeyCode.Keypad4, 4 }, // 4
+            { KeyCode.Keypad5, 5 }, // 5
+            { KeyCode.Keypad6, 6 }, // 6
+            { KeyCode.Keypad7, 7 }, // 7
+            { KeyCode.Keypad8, 8 }, // 8
+            { KeyCode.Keypad9, 9 }, // 9
+            { KeyCode.Clear, 10 }, // clear
+            { KeyCode.KeypadDivide, 11 }, // / (знак деления)
+            { KeyCode.KeypadMultiply, 12 }, // * (знак умножения)
+            { KeyCode.Backspace, 13 }, // Удалить
+            { KeyCode.KeypadMinus, 14 }, // -
+            { KeyCode.KeypadPlus, 15 }, // +
+            { KeyCode.KeypadEnter, 16 }, // NumpadEnter
+            { KeyCode.KeypadPeriod, 17 } // . (точка)
         };
 
         private void Start()
