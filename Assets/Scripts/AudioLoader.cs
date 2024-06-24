@@ -21,7 +21,7 @@ namespace Bake
         private AudioManager _audioManager;
         private List<IEnumerator> audioLoaders = new List<IEnumerator>();
 
-        void Start()
+        void Awake()
         {
             //audioSource = gameObject.AddComponent<AudioSource>();
             //videoPlayer = gameObject.AddComponent<VideoPlayer>();
