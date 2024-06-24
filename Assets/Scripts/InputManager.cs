@@ -47,7 +47,7 @@ namespace Bake
                 {
                     if (Input.GetKey(keyCode))
                     {
-                        Debug.Log(keyCode.ToString().Length);
+                        //Debug.Log(keyCode.ToString().Length);
                         //для теста на пк
                         if(keyCode != KeyCode.Mouse0)
                         {

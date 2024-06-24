@@ -162,7 +162,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 91263112}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 695395199f7d94e47ba7070b10a5f4a3, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: 31fa5495c186e9e4e96bd3cb72c242f8, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -172,12 +172,12 @@ VideoPlayer:
   m_TargetMaterialProperty: <noninit>
   m_RenderMode: 2
   m_AspectRatio: 2
-  m_DataSource: 0
+  m_DataSource: 1
   m_TimeUpdateMode: 2
   m_PlaybackSpeed: 1
-  m_AudioOutputMode: 2
+  m_AudioOutputMode: 1
   m_TargetAudioSources:
-  - {fileID: 0}
+  - {fileID: 664514823}
   m_DirectAudioVolumes:
   - 1
   m_Url: 
@@ -1775,8 +1775,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 548bcbd587bf75b4e88d95e71d8b835f, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -3371,6 +3371,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioDirectory: AudioFiles
   videoDirectory: VideoFiles
+  audioSource: {fileID: 664514823}
+  videoPlayer: {fileID: 91263114}
   textPrefab: {fileID: 7838888890053915624, guid: 788c1e61aa8f4ee4aa2f1ba1b0c1ad23, type: 3}
   contentTransform: {fileID: 1647811150}
 --- !u!4 &1132507358

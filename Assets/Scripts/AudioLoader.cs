@@ -13,8 +13,8 @@ namespace Bake
     {
         public string audioDirectory = "AudioFiles"; // Папка AudioFiles внутри StreamingAssets
         public string videoDirectory = "VideoFiles"; // Папка VideoFiles внутри StreamingAssets
-        private AudioSource audioSource;
-        private VideoPlayer videoPlayer;
+        [SerializeField] private AudioSource audioSource;
+        [SerializeField] private VideoPlayer videoPlayer;
         [SerializeField] private Text textPrefab; // Префаб текстового элемента
         [SerializeField] private Transform contentTransform; // Контейнер для текста внутри ScrollView
 
@@ -23,10 +23,9 @@ namespace Bake
 
         void Start()
         {
-            audioSource = gameObject.AddComponent<AudioSource>();
-            videoPlayer = gameObject.AddComponent<VideoPlayer>();
+            //audioSource = gameObject.AddComponent<AudioSource>();
+            //videoPlayer = gameObject.AddComponent<VideoPlayer>();
 
-            // Убедимся, что у Content есть компонент VerticalLayoutGroup
             EnsureVerticalLayoutGroup(contentTransform);
 
             LoadMediaFiles(audioDirectory, "*.mp3", LoadAudio);
@@ -143,7 +142,7 @@ namespace Bake
             layoutGroup.childForceExpandWidth = true;
             layoutGroup.childControlHeight = true;
             layoutGroup.childControlWidth = true;
-            layoutGroup.spacing = 10; // Настройте это значение по вашему усмотрению
+            layoutGroup.spacing = 10; 
         }
     }
 }
