@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UI.Pagination; //Фрейм
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +10,7 @@ namespace Bake
     public class TimeDetector : MonoBehaviour
     {
         [SerializeField] private InputManager _inputManager;
+        [SerializeField] private PagedRect _pageRect;
 
         [SerializeField] private float _endTime;
 
@@ -43,10 +45,21 @@ namespace Bake
             //Debug.LogFormat("Текущее время с загрузки сцены:{0}", _currTime);
             if (_currTime >= _endTime)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                _pageRect.SetCurrentPage(1);
+                DisableAllAudioSources();
                 return true;
             }
             return false;
+        }
+
+        public void DisableAllAudioSources()
+        {
+            AudioSource[] _audioSources = FindObjectsOfType<AudioSource>();
+            foreach(AudioSource source in _audioSources)
+            {
+                source.Stop();
+            }
         }
 
         private void ResetTimer()
