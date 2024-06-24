@@ -885,13 +885,7 @@ MonoBehaviour:
   _pageRect: {fileID: 1768991424}
   _backgroundAudio: {fileID: 664514823}
   _mysteryAudio: {fileID: 1107898808}
-  mysteries:
-  - {fileID: 8300000, guid: 080b2e2b7ad723747ad509d4bfb978f2, type: 3}
-  - {fileID: 8300000, guid: fa37b2bdd5ae5284d8173fe292fb268a, type: 3}
-  - {fileID: 8300000, guid: 5a9dc2fd0b4e00741b306a4da78b9e22, type: 3}
-  - {fileID: 8300000, guid: a27bdd5f7befbee4382a91b869145f9d, type: 3}
-  - {fileID: 8300000, guid: 6a21ec9406df3d649b03feee5e165d17, type: 3}
-  - {fileID: 8300000, guid: 07000582bb2eaed42a365007632707e3, type: 3}
+  mysteries: []
   _startBgVolume: 0.5
   targetBgDownVolume: 0.1
   duration: 2
@@ -2784,8 +2778,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -226.43292, y: -354}
-  m_SizeDelta: {x: 525.4015, y: 89.1719}
+  m_AnchoredPosition: {x: -226.43292, y: -365.44}
+  m_SizeDelta: {x: 525.4015, y: 138.28}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1036599793
 MonoBehaviour:
@@ -2820,7 +2814,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u0421\u043F\u0438\u0441\u043E\u043A \u0430\u0443\u0434\u0438\u043E:"
+  m_Text: "\u0421\u043F\u0438\u0441\u043E\u043A \u0430\u0443\u0434\u0438\u043E \u0438
+    \u0432\u0438\u0434\u0435\u043E \u0444\u0430\u0439\u043B\u043E\u0432:"
 --- !u!222 &1036599794
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3375,6 +3370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioDirectory: AudioFiles
+  videoDirectory: VideoFiles
   textPrefab: {fileID: 7838888890053915624, guid: 788c1e61aa8f4ee4aa2f1ba1b0c1ad23, type: 3}
   contentTransform: {fileID: 1647811150}
 --- !u!4 &1132507358

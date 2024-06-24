@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UI.Pagination; //Фрейм
+using System.Linq;
 using System;
 
-namespace UI.Pagination
+namespace Bake
 {
     public class AudioManager : MonoBehaviour
     {
@@ -12,7 +14,7 @@ namespace UI.Pagination
 
         [SerializeField] private AudioSource _backgroundAudio;
         [SerializeField] private AudioSource _mysteryAudio;
-        [SerializeField] private AudioClip[] mysteries;
+        public List<AudioClip> mysteries;
 
         [SerializeField] private float _startBgVolume = 0.5f;
         [SerializeField] private float targetBgDownVolume = 0.1f;
@@ -43,7 +45,7 @@ namespace UI.Pagination
                 {
                     if (int.TryParse(input.Substring(6, 1), out int numResult))
                     {
-                        if (numResult <= mysteries.Length -1)
+                        if (numResult <= mysteries.Count - 1)
                         {
                             Debug.LogFormat("Вы выбрали трек №: {0}", numResult);
 
@@ -57,6 +59,22 @@ namespace UI.Pagination
                     }
                 }
             }
+            //if (Input.GetKey(KeyCode.L))
+            //{
+            //    // Преобразуем имена файлов в числовые значения, сортируем их и преобразуем обратно в имена файлов
+            //    var sortedClips = mysteries
+            //        .OrderBy(clip => int.Parse(System.IO.Path.GetFileNameWithoutExtension(clip.name)))
+            //        .ToList();
+
+            //    // Обновляем оригинальный список
+            //    mysteries = sortedClips;
+
+            //    // Выводим отсортированный список для проверки
+            //    foreach (var clip in mysteries)
+            //    {
+            //        Debug.Log(clip.name);
+            //    }
+            //}
         }
 
         IEnumerator FadeVolume(float targetVolume, float duration)

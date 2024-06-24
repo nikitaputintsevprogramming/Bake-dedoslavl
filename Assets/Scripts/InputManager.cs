@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-namespace UI.Pagination
+namespace Bake
 {
     public class InputManager : MonoBehaviour
     {
