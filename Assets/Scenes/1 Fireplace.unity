@@ -967,6 +967,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputManager: {fileID: 354645596}
+  _audioManager: {fileID: 354645599}
   _pageRect: {fileID: 1768991424}
   _endTime: 60
   _currTime: 0

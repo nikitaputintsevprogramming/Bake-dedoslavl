@@ -81,7 +81,7 @@ namespace Bake
             }
         }
 
-        IEnumerator FadeVolume(AudioSource audioSource, float startVolume, float targetVolume, float duration)
+        public IEnumerator FadeVolume(AudioSource audioSource, float startVolume, float targetVolume, float duration)
         {
             float _startVolume = startVolume;
             float time = 0;

@@ -10,6 +10,7 @@ namespace Bake
     public class TimeDetector : MonoBehaviour
     {
         [SerializeField] private InputManager _inputManager;
+        [SerializeField] private AudioManager _audioManager;
         [SerializeField] private PagedRect _pageRect;
 
         [SerializeField] private float _endTime;
@@ -58,7 +59,8 @@ namespace Bake
             AudioSource[] _audioSources = FindObjectsOfType<AudioSource>();
             foreach(AudioSource source in _audioSources)
             {
-                source.Stop();
+                //source.Stop();
+                StartCoroutine(_audioManager.FadeVolume(source, source.volume, 0, 2f));
             }
         }
 
