@@ -25,6 +25,28 @@ namespace Bake
         [SerializeField] private Slider _sliderMinValue;
         [SerializeField] private Slider _sliderMaxValue;
 
+        private Dictionary<KeyCode, int> keyToTrackIndex = new Dictionary<KeyCode, int>
+        {
+            { KeyCode.Keypad0, 0 },
+            { KeyCode.Keypad1, 1 },
+            { KeyCode.Keypad2, 2 },
+            { KeyCode.Keypad3, 3 },
+            { KeyCode.Keypad4, 4 },
+            { KeyCode.Keypad5, 5 },
+            { KeyCode.Keypad6, 6 },
+            { KeyCode.Keypad7, 7 },
+            { KeyCode.Keypad8, 8 },
+            { KeyCode.Keypad9, 9 },
+            { KeyCode.Clear, 10 },
+            { KeyCode.KeypadDivide, 11 },
+            { KeyCode.KeypadMultiply, 12 },
+            { KeyCode.Backspace, 13 },
+            { KeyCode.KeypadMinus, 14 },
+            { KeyCode.KeypadPlus, 15 },
+            { KeyCode.KeypadEnter, 16 },
+            { KeyCode.KeypadPeriod, 17 }
+        };
+
         private void Start()
         {
             _backgroundAudio.Stop();
@@ -43,39 +65,31 @@ namespace Bake
         {
             if (_pageRect.GetCurrentPage().PageNumber == 1 && _inputManager.CheckSensor())
             {
-                Debug.Log("_backgroundAudio.Play");
                 _backgroundAudio.Play();
                 _pageRect.SetCurrentPage(2);
             }
 
             if (_pageRect.GetCurrentPage().PageNumber == 2)
             {
-                //int NumberTrack = Int32.Parse(_inputManager.CheckKeys().ToString().Substring(5, 1));
-                string input = _inputManager.CheckKeys().ToString();
-                Debug.Log(input.Length);
-                // Проверка, что длина строки достаточно велика, чтобы взять подстроку начиная с пятого символа
-                if (input.Length >= 7)
+                KeyCode input = _inputManager.CheckKeys();
+                if (keyToTrackIndex.ContainsKey(input))
                 {
-                    Debug.Log("input.Length >= 7");
-                    if (int.TryParse(input.Substring(6, 1), out int numResult))
+                    int trackIndex = keyToTrackIndex[input];
+                    Debug.Log(trackIndex); // Проверка
+                    if (trackIndex < mysteries.Count)
                     {
-                        if (numResult <= mysteries.Count - 1)
-                        {
-                            Debug.LogFormat("Вы выбрали трек №: {0}", numResult);
+                        Debug.LogFormat("Вы выбрали трек №: {0}", trackIndex);
 
-                            _mysteryAudio.clip = mysteries[numResult];
-                            _mysteryAudio.Play();
-                            StartCoroutine(FadeVolume(_mysteryAudio, _minVolume, _maxVolume, duration));
+                        _mysteryAudio.clip = mysteries[trackIndex];
+                        _mysteryAudio.Play();
+                        StartCoroutine(FadeVolume(_mysteryAudio, _minVolume, _maxVolume, duration));
 
-                            //_backgroundAudio.volume = Mathf.Lerp(_backgroundAudio.volume, 0.1f, 10 * Time.deltaTime);
-                            //_backgroundAudio.volume = 0.1f;
-                            StartCoroutine(FadeVolume(_backgroundAudio, _maxVolume, _minVolume, duration));
-                        }
+                        StartCoroutine(FadeVolume(_backgroundAudio, _maxVolume, _minVolume, duration));
                     }
                 }
             }
 
-            if(!_mysteryAudio.isPlaying && _backgroundAudio.volume <=_minVolume)
+            if (!_mysteryAudio.isPlaying && _backgroundAudio.volume <= _minVolume)
             {
                 StartCoroutine(FadeVolume(_backgroundAudio, _minVolume, _maxVolume, duration));
             }
@@ -94,6 +108,7 @@ namespace Bake
             }
 
             audioSource.volume = targetVolume;
+            
         }
 
         public void ChangeMinVol(Text textTarget)

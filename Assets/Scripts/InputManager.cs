@@ -40,7 +40,8 @@ namespace Bake
             }
             return false;
         }
-        
+
+
         public KeyCode CheckKeys()
         {
             if (Input.anyKeyDown)
@@ -49,9 +50,7 @@ namespace Bake
                 {
                     if (Input.GetKey(keyCode))
                     {
-                        //Debug.Log(keyCode.ToString().Length);
-                        //для теста на пк
-                        if(keyCode != KeyCode.Mouse0)
+                        if (keyCode != KeyCode.Mouse0)
                         {
                             Debug.Log("KeyCode down: " + keyCode);
                             return keyCode;
@@ -61,8 +60,6 @@ namespace Bake
             }
             return KeyCode.None;
         }
-
-
     }
 }
 
