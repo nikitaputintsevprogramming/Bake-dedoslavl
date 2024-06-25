@@ -37,14 +37,14 @@ namespace Bake
             { KeyCode.Keypad7, 7 }, // 7
             { KeyCode.Keypad8, 8 }, // 8
             { KeyCode.Keypad9, 9 }, // 9
-            { KeyCode.Clear, 10 }, // clear
-            { KeyCode.KeypadDivide, 11 }, // / (знак деления)
-            { KeyCode.KeypadMultiply, 12 }, // * (знак умножения)
-            { KeyCode.Backspace, 13 }, // Удалить
-            { KeyCode.KeypadMinus, 14 }, // -
-            { KeyCode.KeypadPlus, 15 }, // +
-            { KeyCode.KeypadEnter, 16 }, // NumpadEnter
-            { KeyCode.KeypadPeriod, 17 } // . (точка)
+            //{ KeyCode.Clear, 10 }, // clear
+            { KeyCode.KeypadDivide, 10 }, // / (знак деления)
+            { KeyCode.KeypadMultiply, 11 }, // * (знак умножения)
+            { KeyCode.Backspace, 12 }, // Удалить
+            { KeyCode.KeypadMinus, 13 }, // -
+            { KeyCode.KeypadPlus, 14 }, // +
+            { KeyCode.KeypadEnter, 15 }, // NumpadEnter
+            { KeyCode.KeypadPeriod, 16 } // . (точка)
         };
 
         private void Start()
