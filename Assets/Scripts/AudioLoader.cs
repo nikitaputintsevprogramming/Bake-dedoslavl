@@ -65,6 +65,22 @@ namespace Bake
         {
             Text textElement = Instantiate(textPrefab, contentTransform);
             textElement.text = fileName;
+            textElement.rectTransform.sizeDelta = new Vector2(200, 200);
+        }
+
+        void EnsureVerticalLayoutGroup(Transform content)
+        {
+            VerticalLayoutGroup layoutGroup = content.GetComponent<VerticalLayoutGroup>();
+            if (layoutGroup == null)
+            {
+                layoutGroup = content.gameObject.AddComponent<VerticalLayoutGroup>();
+            }
+
+            //layoutGroup.childForceExpandHeight = false;
+            //layoutGroup.childForceExpandWidth = true;
+            //layoutGroup.childControlHeight = true;
+            //layoutGroup.childControlWidth = true;
+            //layoutGroup.spacing = 10;
         }
 
         IEnumerator LoadAudio(string path)
@@ -115,61 +131,46 @@ namespace Bake
             }
         }
 
-        IEnumerator WaitForAllAudioLoaders()
-        {
-            foreach (var loader in audioLoaders)
-            {
-                yield return StartCoroutine(loader);
-            }
+        //IEnumerator WaitForAllAudioLoaders()
+        //{
+        //    foreach (var loader in audioLoaders)
+        //    {
+        //        yield return StartCoroutine(loader);
+        //    }
 
-            // Проверяем список перед сортировкой
-            Debug.Log("Audio clips before sorting:");
-            foreach (var clip in _audioManager.mysteries)
-            {
-                Debug.Log(clip.name);
-            }
+        //    // Проверяем список перед сортировкой
+        //    Debug.Log("Audio clips before sorting:");
+        //    foreach (var clip in _audioManager.mysteries)
+        //    {
+        //        Debug.Log(clip.name);
+        //    }
 
-            // Преобразуем имена файлов в числовые значения, сортируем их и преобразуем обратно в имена файлов
-            var sortedClips = _audioManager.mysteries
-                .OrderBy(clip =>
-                {
-                    int parsedNumber;
-                    if (int.TryParse(Path.GetFileNameWithoutExtension(clip.name), out parsedNumber))
-                    {
-                        return parsedNumber;
-                    }
-                    else
-                    {
-                        Debug.LogError($"Failed to parse '{clip.name}' as an integer.");
-                        return int.MaxValue;
-                    }
-                })
-                .ToList();
+        //    // Преобразуем имена файлов в числовые значения, сортируем их и преобразуем обратно в имена файлов
+        //    var sortedClips = _audioManager.mysteries
+        //        .OrderBy(clip =>
+        //        {
+        //            int parsedNumber;
+        //            if (int.TryParse(Path.GetFileNameWithoutExtension(clip.name), out parsedNumber))
+        //            {
+        //                return parsedNumber;
+        //            }
+        //            else
+        //            {
+        //                Debug.LogError($"Failed to parse '{clip.name}' as an integer.");
+        //                return int.MaxValue;
+        //            }
+        //        })
+        //        .ToList();
 
-            // Обновляем оригинальный список
-            _audioManager.mysteries = sortedClips;
+        //    // Обновляем оригинальный список
+        //    _audioManager.mysteries = sortedClips;
 
-            // Выводим отсортированный список для проверки
-            Debug.Log("Sorted audio clips:");
-            foreach (var clip in _audioManager.mysteries)
-            {
-                Debug.Log(clip.name);
-            }
-        }
-
-        void EnsureVerticalLayoutGroup(Transform content)
-        {
-            VerticalLayoutGroup layoutGroup = content.GetComponent<VerticalLayoutGroup>();
-            if (layoutGroup == null)
-            {
-                layoutGroup = content.gameObject.AddComponent<VerticalLayoutGroup>();
-            }
-
-            layoutGroup.childForceExpandHeight = false;
-            layoutGroup.childForceExpandWidth = true;
-            layoutGroup.childControlHeight = true;
-            layoutGroup.childControlWidth = true;
-            layoutGroup.spacing = 10;
-        }
+        //    // Выводим отсортированный список для проверки
+        //    Debug.Log("Sorted audio clips:");
+        //    foreach (var clip in _audioManager.mysteries)
+        //    {
+        //        Debug.Log(clip.name);
+        //    }
+        //}
     }
 }
