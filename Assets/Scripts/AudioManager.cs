@@ -43,8 +43,8 @@ namespace Bake
             { KeyCode.Backspace, 12 }, // Удалить
             { KeyCode.KeypadMinus, 13 }, // -
             { KeyCode.KeypadPlus, 14 }, // +
-            { KeyCode.KeypadEnter, 15 }, // NumpadEnter
-            { KeyCode.KeypadPeriod, 16 } // . (точка)
+            //{ KeyCode.KeypadEnter, 15 }, // NumpadEnter
+            { KeyCode.KeypadPeriod, 15 } // . (точка)
         };
 
         private void Start()
